@@ -68,6 +68,7 @@
             this.LecturesTreeView.Name = "LecturesTreeView";
             this.LecturesTreeView.Size = new System.Drawing.Size(305, 447);
             this.LecturesTreeView.TabIndex = 0;
+            this.LecturesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.LecturesTreeView_AfterSelect);
             // 
             // ExercisesTab
             // 

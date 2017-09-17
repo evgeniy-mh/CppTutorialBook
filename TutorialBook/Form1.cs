@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,10 @@ namespace TutorialBook
 {
     public partial class Form1 : Form
     {        
+
+        //хранится соответствие между названием файла в левом меню и самим файлом на диске
+        private Dictionary<string,FileInfo> lectureFilesDictionary=new Dictionary<string, FileInfo>();
+
         public Form1()
         {
             InitializeComponent();
@@ -26,20 +31,45 @@ namespace TutorialBook
 
         private void initLecuresTreeView()
         {
-            TreeNode[] lectures = {
-                new TreeNode("Лекция 1. Объектно-ориентированное программирование",new TreeNode[] {
-                    new TreeNode("1.1.	Введение"),
-                    new TreeNode("1.2.	Понятие класса"),
-                    new TreeNode("1.3.	Принципы и свойства объектно-ориентированного программирования")
-                }),
+            //идет вверх по папкам пока не попадет в главную папку программы где есть папка Lectures
+            DirectoryInfo AppDirectory = new DirectoryInfo(Directory.GetCurrentDirectory());
 
-                new TreeNode("Лекция 2. Общие сведения о классах")
-            };
+            while (!AppDirectory.EnumerateDirectories().Any((dir)=> { return dir.Name == "Lectures"; }))
+            {
+                AppDirectory = AppDirectory.Parent;
+            }
 
-            //lectures[0].Nodes.AddRange( {new TreeNode("sa") });
+            //переход в папку Lectures
+            DirectoryInfo LecturesDirectory = new DirectoryInfo(AppDirectory.FullName + @"\Lectures\");
+            
+            //добавление папок с содержанием каждой лекции в список лекций
+            foreach (DirectoryInfo dir in LecturesDirectory.GetDirectories())
+            {
+                //добавление частей лекций
+                FileInfo[] lectureFiles = dir.GetFiles();
+                List<TreeNode> childNodes=new List<TreeNode>();
+                foreach(FileInfo file in lectureFiles)
+                {
+                    childNodes.Add(new TreeNode(file.Name));
+                    lectureFilesDictionary.Add(file.Name,file);
+                }
 
-            LecturesTreeView.Nodes.AddRange(lectures);
+                LecturesTreeView.Nodes.Add(new TreeNode(dir.Name,childNodes.ToArray()));
 
+            }
+
+        }
+
+        private void LecturesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            
+            Console.WriteLine("selected "+e.Node.Text);
+
+            if (lectureFilesDictionary.ContainsKey(e.Node.Text))
+            {
+                FileInfo file = lectureFilesDictionary[e.Node.Text];
+                Console.WriteLine(file.FullName);
+            }          
         }
     }
 }
