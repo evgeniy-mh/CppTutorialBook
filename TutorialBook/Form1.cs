@@ -75,7 +75,9 @@ namespace TutorialBook
 
         private void showFile(FileInfo file)
         {
+            LectureRichTextBox.ReadOnly = false;
             LectureRichTextBox.Clear();
+            LectureRichTextBox.Text = "...loading file";
 
             object filename = file.FullName;
             Microsoft.Office.Interop.Word.Application AC = new Microsoft.Office.Interop.Word.Application();
@@ -90,7 +92,9 @@ namespace TutorialBook
                 doc = AC.Documents.Open(ref filename, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref isVisible);
                 doc.Content.Select();
                 doc.Content.Copy();
-                LectureRichTextBox.Paste();
+
+                LectureRichTextBox.Clear();
+                LectureRichTextBox.Paste();                
             }
             catch (Exception ex)
             {
@@ -99,6 +103,7 @@ namespace TutorialBook
             finally
             {
                 doc.Close(ref missing, ref missing, ref missing);
+                LectureRichTextBox.ReadOnly = true;
             }
         }
     }

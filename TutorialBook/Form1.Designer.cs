@@ -93,6 +93,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LectureRichTextBox.Location = new System.Drawing.Point(318, 23);
             this.LectureRichTextBox.Name = "LectureRichTextBox";
+            this.LectureRichTextBox.ReadOnly = true;
             this.LectureRichTextBox.Size = new System.Drawing.Size(324, 431);
             this.LectureRichTextBox.TabIndex = 1;
             this.LectureRichTextBox.Text = "";
