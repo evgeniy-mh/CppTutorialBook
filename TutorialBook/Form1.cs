@@ -53,21 +53,16 @@ namespace TutorialBook
                     childNodes.Add(new TreeNode(file.Name));
                     lectureFilesDictionary.Add(file.Name,file);
                 }
-
                 LecturesTreeView.Nodes.Add(new TreeNode(dir.Name,childNodes.ToArray()));
-
             }
 
         }
 
         private void LecturesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {            
-            Console.WriteLine("selected "+e.Node.Text);
             if (lectureFilesDictionary.ContainsKey(e.Node.Text))
             {
                 FileInfo file = lectureFilesDictionary[e.Node.Text];
-                Console.WriteLine(file.FullName);
-
                 showFile(file);
             }          
         }
