@@ -61,15 +61,45 @@ namespace TutorialBook
         }
 
         private void LecturesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            
+        {            
             Console.WriteLine("selected "+e.Node.Text);
-
             if (lectureFilesDictionary.ContainsKey(e.Node.Text))
             {
                 FileInfo file = lectureFilesDictionary[e.Node.Text];
                 Console.WriteLine(file.FullName);
+
+                showFile(file);
             }          
+        }
+
+
+        private void showFile(FileInfo file)
+        {
+            LectureRichTextBox.Clear();
+
+            object filename = file.FullName;
+            Microsoft.Office.Interop.Word.Application AC = new Microsoft.Office.Interop.Word.Application();
+            Microsoft.Office.Interop.Word.Document doc = new Microsoft.Office.Interop.Word.Document();
+
+            object readOnly = false;
+            object isVisible = true;
+            object missing = System.Reflection.Missing.Value;
+
+            try
+            {
+                doc = AC.Documents.Open(ref filename, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref isVisible);
+                doc.Content.Select();
+                doc.Content.Copy();
+                LectureRichTextBox.Paste();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR: " + ex.Message);
+            }
+            finally
+            {
+                doc.Close(ref missing, ref missing, ref missing);
+            }
         }
     }
 }

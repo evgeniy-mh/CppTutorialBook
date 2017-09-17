@@ -32,6 +32,9 @@
             this.CppBookTab = new System.Windows.Forms.TabPage();
             this.LecturesTreeView = new System.Windows.Forms.TreeView();
             this.ExercisesTab = new System.Windows.Forms.TabPage();
+            this.LectureRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.CppBookTab.SuspendLayout();
             this.SuspendLayout();
@@ -51,6 +54,9 @@
             // 
             // CppBookTab
             // 
+            this.CppBookTab.Controls.Add(this.label2);
+            this.CppBookTab.Controls.Add(this.label1);
+            this.CppBookTab.Controls.Add(this.LectureRichTextBox);
             this.CppBookTab.Controls.Add(this.LecturesTreeView);
             this.CppBookTab.Location = new System.Drawing.Point(4, 22);
             this.CppBookTab.Name = "CppBookTab";
@@ -64,9 +70,9 @@
             // 
             this.LecturesTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.LecturesTreeView.Location = new System.Drawing.Point(7, 7);
+            this.LecturesTreeView.Location = new System.Drawing.Point(7, 23);
             this.LecturesTreeView.Name = "LecturesTreeView";
-            this.LecturesTreeView.Size = new System.Drawing.Size(305, 447);
+            this.LecturesTreeView.Size = new System.Drawing.Size(305, 431);
             this.LecturesTreeView.TabIndex = 0;
             this.LecturesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.LecturesTreeView_AfterSelect);
             // 
@@ -80,6 +86,35 @@
             this.ExercisesTab.Text = "Задания";
             this.ExercisesTab.UseVisualStyleBackColor = true;
             // 
+            // LectureRichTextBox
+            // 
+            this.LectureRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LectureRichTextBox.Location = new System.Drawing.Point(318, 23);
+            this.LectureRichTextBox.Name = "LectureRichTextBox";
+            this.LectureRichTextBox.Size = new System.Drawing.Size(324, 431);
+            this.LectureRichTextBox.TabIndex = 1;
+            this.LectureRichTextBox.Text = "";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Список лекций";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(315, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Содержание";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -91,6 +126,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.CppBookTab.ResumeLayout(false);
+            this.CppBookTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -101,6 +137,9 @@
         private System.Windows.Forms.TabPage CppBookTab;
         private System.Windows.Forms.TabPage ExercisesTab;
         private System.Windows.Forms.TreeView LecturesTreeView;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RichTextBox LectureRichTextBox;
     }
 }
 
