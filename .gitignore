@@ -1,4 +1,6 @@
 TutorialBook/bin
 TutorialBook/obj
 packages
-Lectures
+
+*.suo
+~$*.*
