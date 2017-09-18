@@ -18,8 +18,9 @@ namespace TutorialBook
         DirectoryInfo LecturesDirectory;
         DirectoryInfo ExercisesDirectory;
 
-        //хранится соответствие между названием файла в левом меню и самим файлом на диске
+        //хранится соответствие между названием файла лекции в левом меню и самим файлом на диске
         private Dictionary<string,FileInfo> lectureFilesDictionary=new Dictionary<string, FileInfo>();
+        private Dictionary<string, DirectoryInfo> exerciseDirectoriesDictionary = new Dictionary<string, DirectoryInfo>();
 
         Microsoft.Office.Interop.Word.Application WordApplication;
         Microsoft.Office.Interop.Word.Document WordDocument;
@@ -75,6 +76,7 @@ namespace TutorialBook
             foreach(DirectoryInfo dir in ExercisesDirectory.GetDirectories())
             {
                 ExercisesTreeView.Nodes.Add(new TreeNode(dir.Name));
+                exerciseDirectoriesDictionary.Add(dir.Name, dir);
             }
         }
 
@@ -83,14 +85,30 @@ namespace TutorialBook
             if (lectureFilesDictionary.ContainsKey(e.Node.Text))
             {
                 FileInfo file = lectureFilesDictionary[e.Node.Text];
-                showFile(file);
+                loadWordFile(file);
             }          
         }
 
-        //TODO: REFACTOR!
-        private void showFile(FileInfo file)
+        private void ExercisesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            object filename = file.FullName;
+            if (exerciseDirectoriesDictionary.ContainsKey(e.Node.Text))
+            {
+                DirectoryInfo exerciseDirectory = exerciseDirectoriesDictionary[e.Node.Text];
+
+                FileInfo[] exerciseFiles = exerciseDirectory.GetFiles();
+
+                FileInfo exerciseTextFile = exerciseFiles.FirstOrDefault(file=> { return file.Name == "text.txt"; });
+                if (exerciseTextFile != null)
+                {
+                    ExerciseTextTextBox.Text = System.IO.File.ReadAllText(exerciseTextFile.FullName,Encoding.Default);
+                }
+            }
+        }
+
+        //TODO: REFACTOR!
+        private void loadWordFile(FileInfo wordFile)
+        {
+            object filename = wordFile.FullName;
             /*WordApplication = new Microsoft.Office.Interop.Word.Application();
             document = new Microsoft.Office.Interop.Word.Document();*/
 
@@ -126,5 +144,7 @@ namespace TutorialBook
         {
             Console.WriteLine("RunCodeButton_Click");
         }
+
+        
     }
 }
