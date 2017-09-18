@@ -102,6 +102,12 @@ namespace TutorialBook
                 {
                     ExerciseTextTextBox.Text = System.IO.File.ReadAllText(exerciseTextFile.FullName,Encoding.Default);
                 }
+
+                FileInfo exerciseTemplateFile = exerciseFiles.FirstOrDefault(file => { return file.Name == "template.cpp"; });
+                if (exerciseTextFile != null)
+                {
+                    UserCodeTextBox.Text = System.IO.File.ReadAllText(exerciseTemplateFile.FullName, Encoding.Default);
+                }
             }
         }
 

@@ -41,6 +41,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.RunCodeButton = new System.Windows.Forms.Button();
             this.UserCodeTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.CppBookTab.SuspendLayout();
             this.ExercisesTab.SuspendLayout();
@@ -115,6 +116,7 @@
             // 
             // ExercisesTab
             // 
+            this.ExercisesTab.Controls.Add(this.label5);
             this.ExercisesTab.Controls.Add(this.label4);
             this.ExercisesTab.Controls.Add(this.ExerciseTextTextBox);
             this.ExercisesTab.Controls.Add(this.ExercisesTreeView);
@@ -140,6 +142,8 @@
             // 
             // ExerciseTextTextBox
             // 
+            this.ExerciseTextTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ExerciseTextTextBox.Location = new System.Drawing.Point(249, 24);
             this.ExerciseTextTextBox.Multiline = true;
             this.ExerciseTextTextBox.Name = "ExerciseTextTextBox";
@@ -149,6 +153,8 @@
             // 
             // ExercisesTreeView
             // 
+            this.ExercisesTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.ExercisesTreeView.Location = new System.Drawing.Point(7, 24);
             this.ExercisesTreeView.Name = "ExercisesTreeView";
             this.ExercisesTreeView.Size = new System.Drawing.Size(235, 460);
@@ -166,9 +172,9 @@
             // 
             // RunCodeButton
             // 
-            this.RunCodeButton.Location = new System.Drawing.Point(593, 418);
+            this.RunCodeButton.Location = new System.Drawing.Point(248, 462);
             this.RunCodeButton.Name = "RunCodeButton";
-            this.RunCodeButton.Size = new System.Drawing.Size(75, 23);
+            this.RunCodeButton.Size = new System.Drawing.Size(328, 23);
             this.RunCodeButton.TabIndex = 2;
             this.RunCodeButton.Text = "Запуск";
             this.RunCodeButton.UseVisualStyleBackColor = true;
@@ -178,11 +184,20 @@
             // 
             this.UserCodeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.UserCodeTextBox.Location = new System.Drawing.Point(252, 257);
+            this.UserCodeTextBox.Location = new System.Drawing.Point(249, 169);
             this.UserCodeTextBox.Multiline = true;
             this.UserCodeTextBox.Name = "UserCodeTextBox";
-            this.UserCodeTextBox.Size = new System.Drawing.Size(285, 227);
+            this.UserCodeTextBox.Size = new System.Drawing.Size(327, 287);
             this.UserCodeTextBox.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(252, 153);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(49, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Ваш код";
             // 
             // Form1
             // 
@@ -217,6 +232,7 @@
         private System.Windows.Forms.TreeView ExercisesTreeView;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox ExerciseTextTextBox;
+        private System.Windows.Forms.Label label5;
     }
 }
 
