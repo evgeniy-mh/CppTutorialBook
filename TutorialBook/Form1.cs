@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TutorialBook
@@ -46,7 +42,7 @@ namespace TutorialBook
             //идет вверх по папкам пока не попадет в главную папку программы где есть папка Lectures
             AppDirectory = new DirectoryInfo(Directory.GetCurrentDirectory());
 
-            while (!AppDirectory.EnumerateDirectories().Any((dir) => { return dir.Name == "Lectures"; }))
+            while (!AppDirectory.EnumerateDirectories().Any((dir) => { return dir.Name == AppConstants.LECTURES_DIR_NAME; }))
             {
                 AppDirectory = AppDirectory.Parent;
             }
@@ -55,7 +51,7 @@ namespace TutorialBook
         private void initLecuresTreeView()
         {
             //переход в папку Lectures
-            LecturesDirectory = new DirectoryInfo(AppDirectory.FullName + @"\Lectures\");
+            LecturesDirectory = new DirectoryInfo(String.Format(@"{0} \{1}\",AppDirectory.FullName,AppConstants.LECTURES_DIR_NAME));
 
             //добавление папок с содержанием каждой лекции в список лекций
             foreach (DirectoryInfo dir in LecturesDirectory.GetDirectories())
@@ -74,7 +70,7 @@ namespace TutorialBook
 
         private void initExercisesListView()
         {
-            ExercisesDirectory = new DirectoryInfo(AppDirectory.FullName + @"\Exercises\");
+            ExercisesDirectory = new DirectoryInfo(String.Format(@"{0} \{1}\", AppDirectory.FullName, AppConstants.EXERCISES_DIR_NAME));
             foreach (DirectoryInfo dir in ExercisesDirectory.GetDirectories())
             {
                 ExercisesTreeView.Nodes.Add(new TreeNode(dir.Name));
@@ -100,7 +96,8 @@ namespace TutorialBook
 
                 FileInfo[] exerciseFiles = exerciseDirectory.GetFiles();
 
-                FileInfo exerciseTextFile = exerciseFiles.FirstOrDefault(file => { return file.Name == "text.txt"; });
+                //TODO: refactor
+                FileInfo exerciseTextFile = exerciseFiles.FirstOrDefault(file => { return file.Name == AppConstants.DEFAULT_EXERCISE_TEXT_FILE_NAME; });
                 if (exerciseTextFile != null)
                 {
                     ExerciseTextTextBox.Text = System.IO.File.ReadAllText(exerciseTextFile.FullName, Encoding.Default);
@@ -110,7 +107,7 @@ namespace TutorialBook
                     ExerciseTextTextBox.Clear();
                 }
 
-                FileInfo exerciseTemplateFile = exerciseFiles.FirstOrDefault(file => { return file.Name == "template.cpp"; });
+                FileInfo exerciseTemplateFile = exerciseFiles.FirstOrDefault(file => { return file.Name == AppConstants.DEFAULT_EXERCISE_TEMPLATE_FILE_NAME; });
                 if (exerciseTemplateFile != null)
                 {
                     UserCodeTextBox.Text = System.IO.File.ReadAllText(exerciseTemplateFile.FullName, Encoding.Default);
@@ -119,6 +116,18 @@ namespace TutorialBook
                 {
                     UserCodeTextBox.Clear();
                 }
+
+                /*foreach(FileInfo file in exerciseFiles)
+                {
+                    switch (file.Name)
+                    {
+                        case AppConstants.DEFAULT_EXERCISE_TEXT_FILE_NAME:
+                            break;
+
+                        case AppConstants.DEFAULT_EXERCISE_TEMPLATE_FILE_NAME:
+                            break;
+                    }
+                }*/
             }
         }
 
@@ -126,9 +135,6 @@ namespace TutorialBook
         private void loadWordFile(FileInfo wordFile)
         {
             object filename = wordFile.FullName;
-            /*WordApplication = new Microsoft.Office.Interop.Word.Application();
-            document = new Microsoft.Office.Interop.Word.Document();*/
-
             object readOnly = false;
             object isVisible = true;
             object missing = System.Reflection.Missing.Value;
