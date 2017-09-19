@@ -2,5 +2,5 @@ TutorialBook/bin
 TutorialBook/obj
 packages
 
-*.suo
+.vs
 ~$*.*
