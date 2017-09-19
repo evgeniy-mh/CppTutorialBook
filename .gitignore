@@ -1,0 +1,9 @@
+TutorialBook/bin
+TutorialBook/obj
+packages
+
+.vs
+Exercises/**/*.o
+Exercises/**/.exe
+
+~$*.*
