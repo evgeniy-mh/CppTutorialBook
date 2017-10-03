@@ -35,13 +35,17 @@
             this.LectureRichTextBox = new System.Windows.Forms.RichTextBox();
             this.LecturesTreeView = new System.Windows.Forms.TreeView();
             this.ExercisesTab = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.UserCodeOutputTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.ExerciseTextTextBox = new System.Windows.Forms.TextBox();
             this.ExercisesTreeView = new System.Windows.Forms.TreeView();
             this.label3 = new System.Windows.Forms.Label();
             this.RunCodeButton = new System.Windows.Forms.Button();
             this.UserCodeTextBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.SaveUserCodeButton = new System.Windows.Forms.Button();
+            this.OpenFileButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.CppBookTab.SuspendLayout();
             this.ExercisesTab.SuspendLayout();
@@ -116,6 +120,10 @@
             // 
             // ExercisesTab
             // 
+            this.ExercisesTab.Controls.Add(this.OpenFileButton);
+            this.ExercisesTab.Controls.Add(this.SaveUserCodeButton);
+            this.ExercisesTab.Controls.Add(this.label6);
+            this.ExercisesTab.Controls.Add(this.UserCodeOutputTextBox);
             this.ExercisesTab.Controls.Add(this.label5);
             this.ExercisesTab.Controls.Add(this.label4);
             this.ExercisesTab.Controls.Add(this.ExerciseTextTextBox);
@@ -130,6 +138,32 @@
             this.ExercisesTab.TabIndex = 1;
             this.ExercisesTab.Text = "Задачи";
             this.ExercisesTab.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(583, 153);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(40, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Вывод";
+            // 
+            // UserCodeOutputTextBox
+            // 
+            this.UserCodeOutputTextBox.Location = new System.Drawing.Point(583, 169);
+            this.UserCodeOutputTextBox.Multiline = true;
+            this.UserCodeOutputTextBox.Name = "UserCodeOutputTextBox";
+            this.UserCodeOutputTextBox.Size = new System.Drawing.Size(389, 104);
+            this.UserCodeOutputTextBox.TabIndex = 8;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(252, 153);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(49, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Ваш код";
             // 
             // label4
             // 
@@ -172,9 +206,9 @@
             // 
             // RunCodeButton
             // 
-            this.RunCodeButton.Location = new System.Drawing.Point(248, 462);
+            this.RunCodeButton.Location = new System.Drawing.Point(486, 462);
             this.RunCodeButton.Name = "RunCodeButton";
-            this.RunCodeButton.Size = new System.Drawing.Size(328, 23);
+            this.RunCodeButton.Size = new System.Drawing.Size(90, 23);
             this.RunCodeButton.TabIndex = 2;
             this.RunCodeButton.Text = "Запуск";
             this.RunCodeButton.UseVisualStyleBackColor = true;
@@ -190,14 +224,25 @@
             this.UserCodeTextBox.Size = new System.Drawing.Size(327, 287);
             this.UserCodeTextBox.TabIndex = 0;
             // 
-            // label5
+            // SaveUserCodeButton
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(252, 153);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Ваш код";
+            this.SaveUserCodeButton.Location = new System.Drawing.Point(370, 461);
+            this.SaveUserCodeButton.Name = "SaveUserCodeButton";
+            this.SaveUserCodeButton.Size = new System.Drawing.Size(90, 23);
+            this.SaveUserCodeButton.TabIndex = 10;
+            this.SaveUserCodeButton.Text = "Сохранить";
+            this.SaveUserCodeButton.UseVisualStyleBackColor = true;
+            this.SaveUserCodeButton.Click += new System.EventHandler(this.SaveUserCodeButton_Click);
+            // 
+            // OpenFileButton
+            // 
+            this.OpenFileButton.Location = new System.Drawing.Point(248, 461);
+            this.OpenFileButton.Name = "OpenFileButton";
+            this.OpenFileButton.Size = new System.Drawing.Size(75, 23);
+            this.OpenFileButton.TabIndex = 11;
+            this.OpenFileButton.Text = "Открыть";
+            this.OpenFileButton.UseVisualStyleBackColor = true;
+            this.OpenFileButton.Click += new System.EventHandler(this.OpenFileButton_Click);
             // 
             // Form1
             // 
@@ -233,6 +278,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox ExerciseTextTextBox;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox UserCodeOutputTextBox;
+        private System.Windows.Forms.Button SaveUserCodeButton;
+        private System.Windows.Forms.Button OpenFileButton;
     }
 }
 

@@ -11,14 +11,16 @@ namespace TutorialBook
     public partial class Form1 : Form
     {
 
-        public DirectoryInfo AppDirectory;
+        DirectoryInfo AppDirectory;
         DirectoryInfo LecturesDirectory;
         DirectoryInfo ExercisesDirectory;
         DirectoryInfo currentExerciseDirectory;
 
+        FileInfo currentExerciseCPPFile;
+
         //хранится соответствие между названием файла лекции в левом меню и самим файлом на диске
-        private Dictionary<string, FileInfo> lectureFilesDictionary = new Dictionary<string, FileInfo>();
-        private Dictionary<string, DirectoryInfo> exerciseDirectoriesDictionary = new Dictionary<string, DirectoryInfo>();
+        Dictionary<string, FileInfo> lectureFilesDictionary = new Dictionary<string, FileInfo>();
+        Dictionary<string, DirectoryInfo> exerciseDirectoriesDictionary = new Dictionary<string, DirectoryInfo>();
 
         Microsoft.Office.Interop.Word.Application WordApplication;
         Microsoft.Office.Interop.Word.Document WordDocument;
@@ -110,7 +112,7 @@ namespace TutorialBook
                 FileInfo exerciseTemplateFile = exerciseFiles.FirstOrDefault(file => { return file.Name == AppConstants.DEFAULT_EXERCISE_TEMPLATE_FILE_NAME; });
                 if (exerciseTemplateFile != null)
                 {
-                    UserCodeTextBox.Text = System.IO.File.ReadAllText(exerciseTemplateFile.FullName, Encoding.Default);
+                    UserCodeTextBox.Text = File.ReadAllText(exerciseTemplateFile.FullName, Encoding.Default);
                 }
                 else
                 {
@@ -165,7 +167,7 @@ namespace TutorialBook
 
         private void RunCodeButton_Click(object sender, EventArgs e)
         {
-            if (currentExerciseDirectory != null)
+            if (currentExerciseDirectory != null && currentExerciseCPPFile != null)
             {
                 Process process = new Process();
                 process.StartInfo = new ProcessStartInfo
@@ -184,26 +186,66 @@ namespace TutorialBook
                 {
                     if (pWriter.BaseStream.CanWrite)
                     {
-                        pWriter.WriteLine(@"path=%path%;C:\MinGW\bin");
+                        /*pWriter.WriteLine(@"path=%path%;C:\MinGW\bin");
                         pWriter.WriteLine(@"mingw32-g++.exe -Wall -fexceptions -g -c template.cpp -o template.o");
                         pWriter.WriteLine(@"mingw32-g++.exe  -o template.exe template.o");
-                        pWriter.WriteLine(@"template.exe");
+                        pWriter.WriteLine(@"template.exe");*/
+
+                        pWriter.WriteLine(@"path=%path%;C:\MinGW\bin");
+                        pWriter.WriteLine(String.Format(@"mingw32-g++.exe -Wall -fexceptions -g -c {0} -o ex.o",currentExerciseCPPFile));
+                        pWriter.WriteLine(@"mingw32-g++.exe  -o ex.exe ex.o");
+                        pWriter.WriteLine(@"ex.exe");
                     }
                 }
 
-                while (!process.StandardOutput.EndOfStream)
+                /*while (!process.StandardOutput.EndOfStream)
                 {
                     string line = process.StandardOutput.ReadLine();
                     Console.WriteLine(line);
-                }
+                }*/
+                UserCodeOutputTextBox.Text = process.StandardOutput.ReadToEnd();
+
 
                 while (!process.StandardError.EndOfStream)
                 {
                     string line = process.StandardError.ReadLine();
-                    Console.WriteLine(line);
                 }
 
                 process.WaitForExit();
+            }
+        }
+
+        private void SaveUserCodeButton_Click(object sender, EventArgs e)
+        {
+            if (currentExerciseDirectory != null)
+            {
+                String filePath;
+                if (currentExerciseCPPFile == null)
+                {
+                    filePath = String.Format(@"{0}\{1}", currentExerciseDirectory.FullName, AppConstants.DEFAULT_EXERCISE_FILE_NAME);
+                }
+                else
+                {
+                    filePath = currentExerciseCPPFile.FullName;
+                }
+                File.WriteAllLines(filePath, UserCodeTextBox.Lines, Encoding.Default);
+            }
+        }
+
+        private void OpenFileButton_Click(object sender, EventArgs e)
+        {
+            if (currentExerciseDirectory != null)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.InitialDirectory = currentExerciseDirectory.FullName;
+                openFileDialog.Filter = "Cpp Files|*.cpp";
+                openFileDialog.Title = "Выберите файл с вашим кодом";
+
+                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    currentExerciseCPPFile =new FileInfo(openFileDialog.FileName);
+                    UserCodeTextBox.Text = File.ReadAllText(currentExerciseCPPFile.FullName);
+                }
             }
         }
     }
