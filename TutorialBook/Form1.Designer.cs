@@ -35,6 +35,8 @@
             this.LectureRichTextBox = new System.Windows.Forms.RichTextBox();
             this.LecturesTreeView = new System.Windows.Forms.TreeView();
             this.ExercisesTab = new System.Windows.Forms.TabPage();
+            this.OpenFileButton = new System.Windows.Forms.Button();
+            this.SaveUserCodeButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.UserCodeOutputTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -44,8 +46,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.RunCodeButton = new System.Windows.Forms.Button();
             this.UserCodeTextBox = new System.Windows.Forms.TextBox();
-            this.SaveUserCodeButton = new System.Windows.Forms.Button();
-            this.OpenFileButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.CppBookTab.SuspendLayout();
             this.ExercisesTab.SuspendLayout();
@@ -139,6 +139,26 @@
             this.ExercisesTab.Text = "Задачи";
             this.ExercisesTab.UseVisualStyleBackColor = true;
             // 
+            // OpenFileButton
+            // 
+            this.OpenFileButton.Location = new System.Drawing.Point(248, 461);
+            this.OpenFileButton.Name = "OpenFileButton";
+            this.OpenFileButton.Size = new System.Drawing.Size(75, 23);
+            this.OpenFileButton.TabIndex = 11;
+            this.OpenFileButton.Text = "Открыть";
+            this.OpenFileButton.UseVisualStyleBackColor = true;
+            this.OpenFileButton.Click += new System.EventHandler(this.OpenFileButton_Click);
+            // 
+            // SaveUserCodeButton
+            // 
+            this.SaveUserCodeButton.Location = new System.Drawing.Point(370, 461);
+            this.SaveUserCodeButton.Name = "SaveUserCodeButton";
+            this.SaveUserCodeButton.Size = new System.Drawing.Size(90, 23);
+            this.SaveUserCodeButton.TabIndex = 10;
+            this.SaveUserCodeButton.Text = "Сохранить";
+            this.SaveUserCodeButton.UseVisualStyleBackColor = true;
+            this.SaveUserCodeButton.Click += new System.EventHandler(this.SaveUserCodeButton_Click);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -221,28 +241,9 @@
             this.UserCodeTextBox.Location = new System.Drawing.Point(249, 169);
             this.UserCodeTextBox.Multiline = true;
             this.UserCodeTextBox.Name = "UserCodeTextBox";
+            this.UserCodeTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.UserCodeTextBox.Size = new System.Drawing.Size(327, 287);
             this.UserCodeTextBox.TabIndex = 0;
-            // 
-            // SaveUserCodeButton
-            // 
-            this.SaveUserCodeButton.Location = new System.Drawing.Point(370, 461);
-            this.SaveUserCodeButton.Name = "SaveUserCodeButton";
-            this.SaveUserCodeButton.Size = new System.Drawing.Size(90, 23);
-            this.SaveUserCodeButton.TabIndex = 10;
-            this.SaveUserCodeButton.Text = "Сохранить";
-            this.SaveUserCodeButton.UseVisualStyleBackColor = true;
-            this.SaveUserCodeButton.Click += new System.EventHandler(this.SaveUserCodeButton_Click);
-            // 
-            // OpenFileButton
-            // 
-            this.OpenFileButton.Location = new System.Drawing.Point(248, 461);
-            this.OpenFileButton.Name = "OpenFileButton";
-            this.OpenFileButton.Size = new System.Drawing.Size(75, 23);
-            this.OpenFileButton.TabIndex = 11;
-            this.OpenFileButton.Text = "Открыть";
-            this.OpenFileButton.UseVisualStyleBackColor = true;
-            this.OpenFileButton.Click += new System.EventHandler(this.OpenFileButton_Click);
             // 
             // Form1
             // 

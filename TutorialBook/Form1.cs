@@ -17,6 +17,7 @@ namespace TutorialBook
         DirectoryInfo currentExerciseDirectory;
 
         FileInfo currentExerciseCPPFile;
+        FileInfo currentExerciseTestFile;
 
         //хранится соответствие между названием файла лекции в левом меню и самим файлом на диске
         Dictionary<string, FileInfo> lectureFilesDictionary = new Dictionary<string, FileInfo>();
@@ -119,6 +120,12 @@ namespace TutorialBook
                     UserCodeTextBox.Clear();
                 }
 
+                currentExerciseTestFile = exerciseFiles.FirstOrDefault(file=> { return file.Name == AppConstants.DEFAULT_EXERCISE_TEST_FILE_NAME; });
+                if (currentExerciseTestFile != null)
+                {
+
+                }
+
                 /*foreach(FileInfo file in exerciseFiles)
                 {
                     switch (file.Name)
@@ -186,15 +193,10 @@ namespace TutorialBook
                 {
                     if (pWriter.BaseStream.CanWrite)
                     {
-                        /*pWriter.WriteLine(@"path=%path%;C:\MinGW\bin");
-                        pWriter.WriteLine(@"mingw32-g++.exe -Wall -fexceptions -g -c template.cpp -o template.o");
-                        pWriter.WriteLine(@"mingw32-g++.exe  -o template.exe template.o");
-                        pWriter.WriteLine(@"template.exe");*/
-
-                        pWriter.WriteLine(@"path=%path%;C:\MinGW\bin");
+                        pWriter.WriteLine(@"path=C:\MinGW\bin");
                         pWriter.WriteLine(String.Format(@"mingw32-g++.exe -Wall -fexceptions -g -c {0} -o ex.o",currentExerciseCPPFile));
-                        pWriter.WriteLine(@"mingw32-g++.exe  -o ex.exe ex.o");
-                        pWriter.WriteLine(@"ex.exe");
+                        pWriter.WriteLine(String.Format(@"mingw32-g++.exe  -o {0} ex.o",AppConstants.DEFAULT_COMPILED_FILE_NAME));
+                        //pWriter.WriteLine(AppConstants.DEFAULT_COMPILED_FILE_NAME);                        
                     }
                 }
 
@@ -205,14 +207,57 @@ namespace TutorialBook
                 }*/
                 UserCodeOutputTextBox.Text = process.StandardOutput.ReadToEnd();
 
-
                 while (!process.StandardError.EndOfStream)
                 {
                     string line = process.StandardError.ReadLine();
                 }
 
                 process.WaitForExit();
+
+                /*if (currentExerciseTestFile != null)
+                {
+                    RunExerciseTest(currentExerciseTestFile);
+                }*/
             }
+        }
+
+        void RunExerciseTest(FileInfo testFile)
+        {
+            string[] testString = File.ReadAllLines(testFile.FullName, Encoding.Default);
+
+            Console.WriteLine( currentExerciseDirectory.FullName + @"\" + AppConstants.DEFAULT_COMPILED_FILE_NAME);
+
+            Process process = new Process();
+            process.StartInfo = new ProcessStartInfo
+            {
+                FileName = currentExerciseDirectory.FullName+@"\"+ AppConstants.DEFAULT_COMPILED_FILE_NAME,
+                WorkingDirectory = currentExerciseDirectory.FullName,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+            };
+
+            process.Start();
+
+            //UserCodeOutputTextBox.Text = UserCodeOutputTextBox.Text+ process.StandardOutput.ReadToEnd();
+
+            process.WaitForExit();
+
+            /*if (currentExerciseTestFile != null)
+                        {
+                            foreach (string s in testString)
+                            {
+                                if (s[0] == '=')
+                                {
+
+                                }
+                                else
+                                {
+                                    pWriter.WriteLine(s);
+                                }
+                            }
+                        }*/
         }
 
         private void SaveUserCodeButton_Click(object sender, EventArgs e)
