@@ -173,6 +173,7 @@
             this.UserCodeOutputTextBox.Location = new System.Drawing.Point(583, 169);
             this.UserCodeOutputTextBox.Multiline = true;
             this.UserCodeOutputTextBox.Name = "UserCodeOutputTextBox";
+            this.UserCodeOutputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.UserCodeOutputTextBox.Size = new System.Drawing.Size(389, 104);
             this.UserCodeOutputTextBox.TabIndex = 8;
             // 

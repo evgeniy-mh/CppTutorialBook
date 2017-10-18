@@ -45,7 +45,7 @@ int main()
     Point p=Point(n);
     p.EnterCoordinates();
 
-    cout<<p.FindDistance()<<endl;
+    cout<<"Answer:"<<p.FindDistance()<<endl;
 
     return 0;
 }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace TutorialBook
@@ -195,8 +196,7 @@ namespace TutorialBook
                     {
                         pWriter.WriteLine(@"path=C:\MinGW\bin");
                         pWriter.WriteLine(String.Format(@"mingw32-g++.exe -Wall -fexceptions -g -c {0} -o ex.o",currentExerciseCPPFile));
-                        pWriter.WriteLine(String.Format(@"mingw32-g++.exe  -o {0} ex.o",AppConstants.DEFAULT_COMPILED_FILE_NAME));
-                        //pWriter.WriteLine(AppConstants.DEFAULT_COMPILED_FILE_NAME);                        
+                        pWriter.WriteLine(String.Format(@"mingw32-g++.exe  -o {0} ex.o",AppConstants.DEFAULT_COMPILED_FILE_NAME));                     
                     }
                 }
 
@@ -214,10 +214,10 @@ namespace TutorialBook
 
                 process.WaitForExit();
 
-                /*if (currentExerciseTestFile != null)
+                if (currentExerciseTestFile != null)
                 {
                     RunExerciseTest(currentExerciseTestFile);
-                }*/
+                }
             }
         }
 
@@ -225,12 +225,10 @@ namespace TutorialBook
         {
             string[] testString = File.ReadAllLines(testFile.FullName, Encoding.Default);
 
-            Console.WriteLine( currentExerciseDirectory.FullName + @"\" + AppConstants.DEFAULT_COMPILED_FILE_NAME);
-
             Process process = new Process();
             process.StartInfo = new ProcessStartInfo
             {
-                FileName = currentExerciseDirectory.FullName+@"\"+ AppConstants.DEFAULT_COMPILED_FILE_NAME,
+                FileName = "cmd.exe",
                 WorkingDirectory = currentExerciseDirectory.FullName,
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
@@ -240,24 +238,59 @@ namespace TutorialBook
 
             process.Start();
 
-            //UserCodeOutputTextBox.Text = UserCodeOutputTextBox.Text+ process.StandardOutput.ReadToEnd();
+            string testAnswerFromFileStr = "";
+            double testAnswerFromFile=0;
 
+            using (StreamWriter pWriter = process.StandardInput)
+            {
+                if (pWriter.BaseStream.CanWrite)
+                {
+                    pWriter.WriteLine(@"path=C:\MinGW\bin");
+                    pWriter.WriteLine(AppConstants.DEFAULT_COMPILED_FILE_NAME);
+                }
+
+                if (currentExerciseTestFile != null)
+                {
+                    foreach (string s in testString)
+                    {
+                        if (s[0] == '=')
+                        {
+                            testAnswerFromFileStr = s.Remove(0, 1); //удалить "="
+                            testAnswerFromFile= Double.Parse(testAnswerFromFileStr, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+                        }
+                        else
+                        {
+                            pWriter.WriteLine(s);
+                        }
+                    }
+                }
+            }
+
+            string testAnswerStr="";
+            double testAnswer=0;
+
+            while (!process.StandardOutput.EndOfStream)
+            {
+                string line = process.StandardOutput.ReadLine()+Environment.NewLine;
+                UserCodeOutputTextBox.Text = UserCodeOutputTextBox.Text + line;
+
+                if (line.StartsWith("Answer:"))
+                {
+                    testAnswerStr = String.Join( "",line.ToCharArray().Where(c=> { return Char.IsDigit(c) || c == '.'; }));
+                    testAnswer = Double.Parse(testAnswerStr, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+                }
+
+            }
             process.WaitForExit();
 
-            /*if (currentExerciseTestFile != null)
-                        {
-                            foreach (string s in testString)
-                            {
-                                if (s[0] == '=')
-                                {
+            if(testAnswerStr.Length>0 &&testAnswerFromFileStr.Length>0)
+            {
+                if (testAnswer == testAnswerFromFile)
+                {
+                    MessageBox.Show("Тест пройден");
+                }
+            }
 
-                                }
-                                else
-                                {
-                                    pWriter.WriteLine(s);
-                                }
-                            }
-                        }*/
         }
 
         private void SaveUserCodeButton_Click(object sender, EventArgs e)
