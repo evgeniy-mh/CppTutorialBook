@@ -55,7 +55,7 @@ namespace TutorialBook
         private void initLecuresTreeView()
         {
             //переход в папку Lectures
-            LecturesDirectory = new DirectoryInfo(String.Format(@"{0} \{1}\",AppDirectory.FullName,AppConstants.LECTURES_DIR_NAME));
+            LecturesDirectory = new DirectoryInfo(String.Format(@"{0} \{1}\", AppDirectory.FullName, AppConstants.LECTURES_DIR_NAME));
 
             //добавление папок с содержанием каждой лекции в список лекций
             foreach (DirectoryInfo dir in LecturesDirectory.GetDirectories())
@@ -121,7 +121,7 @@ namespace TutorialBook
                     UserCodeTextBox.Clear();
                 }
 
-                currentExerciseTestFile = exerciseFiles.FirstOrDefault(file=> { return file.Name == AppConstants.DEFAULT_EXERCISE_TEST_FILE_NAME; });
+                currentExerciseTestFile = exerciseFiles.FirstOrDefault(file => { return file.Name == AppConstants.DEFAULT_EXERCISE_TEST_FILE_NAME; });
                 if (currentExerciseTestFile != null)
                 {
 
@@ -195,21 +195,27 @@ namespace TutorialBook
                     if (pWriter.BaseStream.CanWrite)
                     {
                         pWriter.WriteLine(@"path=C:\MinGW\bin");
-                        pWriter.WriteLine(String.Format(@"mingw32-g++.exe -Wall -fexceptions -g -c {0} -o ex.o",currentExerciseCPPFile));
-                        pWriter.WriteLine(String.Format(@"mingw32-g++.exe  -o {0} ex.o",AppConstants.DEFAULT_COMPILED_FILE_NAME));                     
+                        pWriter.WriteLine(String.Format(@"mingw32-g++.exe -Wall -fexceptions -g -c {0} -o ex.o", currentExerciseCPPFile));
+                        pWriter.WriteLine(String.Format(@"mingw32-g++.exe  -o {0} ex.o", AppConstants.DEFAULT_COMPILED_FILE_NAME));
                     }
                 }
+
+                //количество сообщений которые не будут показываться пользователю
 
                 /*while (!process.StandardOutput.EndOfStream)
                 {
                     string line = process.StandardOutput.ReadLine();
-                    Console.WriteLine(line);
+                    UserCodeOutputTextBox.Text = UserCodeOutputTextBox.Text + line;
                 }*/
                 UserCodeOutputTextBox.Text = process.StandardOutput.ReadToEnd();
 
                 while (!process.StandardError.EndOfStream)
                 {
                     string line = process.StandardError.ReadLine();
+                    /*if (line.Length != 0)
+                    {
+                        UserCodeOutputTextBox.Text = UserCodeOutputTextBox.Text + line;
+                    }*/
                 }
 
                 process.WaitForExit();
@@ -218,6 +224,10 @@ namespace TutorialBook
                 {
                     RunExerciseTest(currentExerciseTestFile);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Сначала сохраните ваш файл или откройте существующий");
             }
         }
 
@@ -239,7 +249,7 @@ namespace TutorialBook
             process.Start();
 
             string testAnswerFromFileStr = "";
-            double testAnswerFromFile=0;
+            double testAnswerFromFile = 0;
 
             using (StreamWriter pWriter = process.StandardInput)
             {
@@ -256,7 +266,7 @@ namespace TutorialBook
                         if (s[0] == '=')
                         {
                             testAnswerFromFileStr = s.Remove(0, 1); //удалить "="
-                            testAnswerFromFile= Double.Parse(testAnswerFromFileStr, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+                            testAnswerFromFile = Double.Parse(testAnswerFromFileStr, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
                         }
                         else
                         {
@@ -264,30 +274,51 @@ namespace TutorialBook
                         }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Файла для проведения тестирования не обнаружено!");
+                }
             }
 
-            string testAnswerStr="";
-            double testAnswer=0;
+            string testAnswerStr = "";
+            double testAnswer = 0;
+            bool programOutputContainsAnswer = false;
+
+            UserCodeOutputTextBox.Text = UserCodeOutputTextBox.Text +
+                System.Environment.NewLine +
+                System.Environment.NewLine +
+                "::::Начало тестирования::::" +
+                System.Environment.NewLine + 
+                System.Environment.NewLine;
 
             while (!process.StandardOutput.EndOfStream)
-            {
-                string line = process.StandardOutput.ReadLine()+Environment.NewLine;
+            {                
+                string line = process.StandardOutput.ReadLine() + Environment.NewLine;
                 UserCodeOutputTextBox.Text = UserCodeOutputTextBox.Text + line;
 
                 if (line.StartsWith("Answer:"))
                 {
-                    testAnswerStr = String.Join( "",line.ToCharArray().Where(c=> { return Char.IsDigit(c) || c == '.'; }));
+                    testAnswerStr = String.Join("", line.ToCharArray().Where(c => { return Char.IsDigit(c) || c == '.'; }));
                     testAnswer = Double.Parse(testAnswerStr, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+                    programOutputContainsAnswer = true;
                 }
-
             }
             process.WaitForExit();
 
-            if(testAnswerStr.Length>0 &&testAnswerFromFileStr.Length>0)
+            if (programOutputContainsAnswer == false)
+            {
+                MessageBox.Show("Внимание! Программа не может быть протестирована, не обнаруженно ключевое слово \"Answer: \"");
+            }
+
+            if (testAnswerStr.Length > 0 && testAnswerFromFileStr.Length > 0)
             {
                 if (testAnswer == testAnswerFromFile)
                 {
-                    MessageBox.Show("Тест пройден");
+                    MessageBox.Show("Тест пройден :)");
+                }
+                else
+                {
+                    MessageBox.Show(String.Format("Правильный ответ: {0}, Результат тестирования: {1}", testAnswerFromFile, testAnswer), "Тест не пройден");
                 }
             }
 
@@ -307,6 +338,11 @@ namespace TutorialBook
                     filePath = currentExerciseCPPFile.FullName;
                 }
                 File.WriteAllLines(filePath, UserCodeTextBox.Lines, Encoding.Default);
+
+                MessageBox.Show("Ваш код сохранен в файл " + filePath);
+
+                currentExerciseCPPFile = new FileInfo(filePath);
+                UserCodeTextBox.Text = File.ReadAllText(currentExerciseCPPFile.FullName);
             }
         }
 
@@ -321,7 +357,7 @@ namespace TutorialBook
 
                 if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    currentExerciseCPPFile =new FileInfo(openFileDialog.FileName);
+                    currentExerciseCPPFile = new FileInfo(openFileDialog.FileName);
                     UserCodeTextBox.Text = File.ReadAllText(currentExerciseCPPFile.FullName);
                 }
             }

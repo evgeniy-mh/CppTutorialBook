@@ -46,6 +46,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.RunCodeButton = new System.Windows.Forms.Button();
             this.UserCodeTextBox = new System.Windows.Forms.TextBox();
+            this.InstructionsTab = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.CppBookTab.SuspendLayout();
             this.ExercisesTab.SuspendLayout();
@@ -58,6 +59,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.CppBookTab);
             this.tabControl1.Controls.Add(this.ExercisesTab);
+            this.tabControl1.Controls.Add(this.InstructionsTab);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -101,6 +103,7 @@
             this.LectureRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.LectureRichTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.LectureRichTextBox.Location = new System.Drawing.Point(318, 23);
             this.LectureRichTextBox.Name = "LectureRichTextBox";
             this.LectureRichTextBox.ReadOnly = true;
@@ -141,7 +144,7 @@
             // 
             // OpenFileButton
             // 
-            this.OpenFileButton.Location = new System.Drawing.Point(248, 461);
+            this.OpenFileButton.Location = new System.Drawing.Point(309, 461);
             this.OpenFileButton.Name = "OpenFileButton";
             this.OpenFileButton.Size = new System.Drawing.Size(75, 23);
             this.OpenFileButton.TabIndex = 11;
@@ -151,7 +154,7 @@
             // 
             // SaveUserCodeButton
             // 
-            this.SaveUserCodeButton.Location = new System.Drawing.Point(370, 461);
+            this.SaveUserCodeButton.Location = new System.Drawing.Point(390, 461);
             this.SaveUserCodeButton.Name = "SaveUserCodeButton";
             this.SaveUserCodeButton.Size = new System.Drawing.Size(90, 23);
             this.SaveUserCodeButton.TabIndex = 10;
@@ -174,13 +177,13 @@
             this.UserCodeOutputTextBox.Multiline = true;
             this.UserCodeOutputTextBox.Name = "UserCodeOutputTextBox";
             this.UserCodeOutputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.UserCodeOutputTextBox.Size = new System.Drawing.Size(389, 104);
+            this.UserCodeOutputTextBox.Size = new System.Drawing.Size(389, 287);
             this.UserCodeOutputTextBox.TabIndex = 8;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(252, 153);
+            this.label5.Location = new System.Drawing.Point(178, 153);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(49, 13);
             this.label5.TabIndex = 7;
@@ -189,7 +192,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(249, 7);
+            this.label4.Location = new System.Drawing.Point(178, 8);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 13);
             this.label4.TabIndex = 6;
@@ -199,11 +202,11 @@
             // 
             this.ExerciseTextTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExerciseTextTextBox.Location = new System.Drawing.Point(249, 24);
+            this.ExerciseTextTextBox.Location = new System.Drawing.Point(178, 24);
             this.ExerciseTextTextBox.Multiline = true;
             this.ExerciseTextTextBox.Name = "ExerciseTextTextBox";
             this.ExerciseTextTextBox.ReadOnly = true;
-            this.ExerciseTextTextBox.Size = new System.Drawing.Size(723, 122);
+            this.ExerciseTextTextBox.Size = new System.Drawing.Size(794, 122);
             this.ExerciseTextTextBox.TabIndex = 5;
             // 
             // ExercisesTreeView
@@ -212,7 +215,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ExercisesTreeView.Location = new System.Drawing.Point(7, 24);
             this.ExercisesTreeView.Name = "ExercisesTreeView";
-            this.ExercisesTreeView.Size = new System.Drawing.Size(235, 460);
+            this.ExercisesTreeView.Size = new System.Drawing.Size(165, 460);
             this.ExercisesTreeView.TabIndex = 4;
             this.ExercisesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ExercisesTreeView_AfterSelect);
             // 
@@ -227,7 +230,7 @@
             // 
             // RunCodeButton
             // 
-            this.RunCodeButton.Location = new System.Drawing.Point(486, 462);
+            this.RunCodeButton.Location = new System.Drawing.Point(486, 461);
             this.RunCodeButton.Name = "RunCodeButton";
             this.RunCodeButton.Size = new System.Drawing.Size(90, 23);
             this.RunCodeButton.TabIndex = 2;
@@ -239,12 +242,21 @@
             // 
             this.UserCodeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.UserCodeTextBox.Location = new System.Drawing.Point(249, 169);
+            this.UserCodeTextBox.Location = new System.Drawing.Point(178, 169);
             this.UserCodeTextBox.Multiline = true;
             this.UserCodeTextBox.Name = "UserCodeTextBox";
             this.UserCodeTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.UserCodeTextBox.Size = new System.Drawing.Size(327, 287);
+            this.UserCodeTextBox.Size = new System.Drawing.Size(398, 287);
             this.UserCodeTextBox.TabIndex = 0;
+            // 
+            // InstructionsTab
+            // 
+            this.InstructionsTab.Location = new System.Drawing.Point(4, 22);
+            this.InstructionsTab.Name = "InstructionsTab";
+            this.InstructionsTab.Size = new System.Drawing.Size(978, 490);
+            this.InstructionsTab.TabIndex = 2;
+            this.InstructionsTab.Text = "Инструкции";
+            this.InstructionsTab.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -284,6 +296,7 @@
         private System.Windows.Forms.TextBox UserCodeOutputTextBox;
         private System.Windows.Forms.Button SaveUserCodeButton;
         private System.Windows.Forms.Button OpenFileButton;
+        private System.Windows.Forms.TabPage InstructionsTab;
     }
 }
 
