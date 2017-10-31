@@ -15,5 +15,7 @@ namespace TutorialBook
         public const string DEFAULT_EXERCISE_FILE_NAME = "exercise.cpp";
         public const string DEFAULT_COMPILED_FILE_NAME = "exercise.exe";
         public const string DEFAULT_EXERCISE_TEST_FILE_NAME = "test.txt";
+
+        public static string DEFAULT_COMPILER_FOLDER = @"C:\MinGW\bin";
     }
 }

@@ -33,6 +33,7 @@ namespace TutorialBook
             findAppDirectory();
             initLecuresTreeView();
             initExercisesListView();
+            MinGWFolderTextBox.Text = AppConstants.DEFAULT_COMPILER_FOLDER;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -194,7 +195,7 @@ namespace TutorialBook
                 {
                     if (pWriter.BaseStream.CanWrite)
                     {
-                        pWriter.WriteLine(@"path=C:\MinGW\bin");
+                        pWriter.WriteLine(@"path=" + MinGWFolderTextBox.Text);
                         pWriter.WriteLine(String.Format(@"mingw32-g++.exe -Wall -fexceptions -g -c {0} -o ex.o", currentExerciseCPPFile));
                         pWriter.WriteLine(String.Format(@"mingw32-g++.exe  -o {0} ex.o", AppConstants.DEFAULT_COMPILED_FILE_NAME));
                     }
@@ -255,7 +256,7 @@ namespace TutorialBook
             {
                 if (pWriter.BaseStream.CanWrite)
                 {
-                    pWriter.WriteLine(@"path=C:\MinGW\bin");
+                    pWriter.WriteLine(@"path="+MinGWFolderTextBox.Text);
                     pWriter.WriteLine(AppConstants.DEFAULT_COMPILED_FILE_NAME);
                 }
 
@@ -359,6 +360,19 @@ namespace TutorialBook
                 {
                     currentExerciseCPPFile = new FileInfo(openFileDialog.FileName);
                     UserCodeTextBox.Text = File.ReadAllText(currentExerciseCPPFile.FullName);
+                }
+            }
+        }
+
+        private void OpenMinGWFolder_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    MinGWFolderTextBox.Text=fbd.SelectedPath;
                 }
             }
         }

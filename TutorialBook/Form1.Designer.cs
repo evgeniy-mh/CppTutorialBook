@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.CppBookTab = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,9 +48,14 @@
             this.RunCodeButton = new System.Windows.Forms.Button();
             this.UserCodeTextBox = new System.Windows.Forms.TextBox();
             this.InstructionsTab = new System.Windows.Forms.TabPage();
+            this.OpenMinGWFolder = new System.Windows.Forms.Button();
+            this.MinGWFolderTextBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.UserInfoTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.CppBookTab.SuspendLayout();
             this.ExercisesTab.SuspendLayout();
+            this.InstructionsTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -251,12 +257,52 @@
             // 
             // InstructionsTab
             // 
+            this.InstructionsTab.Controls.Add(this.OpenMinGWFolder);
+            this.InstructionsTab.Controls.Add(this.MinGWFolderTextBox);
+            this.InstructionsTab.Controls.Add(this.label7);
+            this.InstructionsTab.Controls.Add(this.UserInfoTextBox);
             this.InstructionsTab.Location = new System.Drawing.Point(4, 22);
             this.InstructionsTab.Name = "InstructionsTab";
             this.InstructionsTab.Size = new System.Drawing.Size(978, 490);
             this.InstructionsTab.TabIndex = 2;
             this.InstructionsTab.Text = "Инструкции";
             this.InstructionsTab.UseVisualStyleBackColor = true;
+            // 
+            // OpenMinGWFolder
+            // 
+            this.OpenMinGWFolder.Location = new System.Drawing.Point(899, 184);
+            this.OpenMinGWFolder.Name = "OpenMinGWFolder";
+            this.OpenMinGWFolder.Size = new System.Drawing.Size(75, 23);
+            this.OpenMinGWFolder.TabIndex = 3;
+            this.OpenMinGWFolder.Text = "Открыть";
+            this.OpenMinGWFolder.UseVisualStyleBackColor = true;
+            this.OpenMinGWFolder.Click += new System.EventHandler(this.OpenMinGWFolder_Click);
+            // 
+            // MinGWFolderTextBox
+            // 
+            this.MinGWFolderTextBox.Location = new System.Drawing.Point(7, 186);
+            this.MinGWFolderTextBox.Name = "MinGWFolderTextBox";
+            this.MinGWFolderTextBox.Size = new System.Drawing.Size(886, 20);
+            this.MinGWFolderTextBox.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(4, 169);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(250, 13);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Путь к компилятору ( например C:\\MinGW\\bin ):";
+            // 
+            // UserInfoTextBox
+            // 
+            this.UserInfoTextBox.Location = new System.Drawing.Point(4, 4);
+            this.UserInfoTextBox.Multiline = true;
+            this.UserInfoTextBox.Name = "UserInfoTextBox";
+            this.UserInfoTextBox.ReadOnly = true;
+            this.UserInfoTextBox.Size = new System.Drawing.Size(971, 158);
+            this.UserInfoTextBox.TabIndex = 0;
+            this.UserInfoTextBox.Text = resources.GetString("UserInfoTextBox.Text");
             // 
             // Form1
             // 
@@ -272,6 +318,8 @@
             this.CppBookTab.PerformLayout();
             this.ExercisesTab.ResumeLayout(false);
             this.ExercisesTab.PerformLayout();
+            this.InstructionsTab.ResumeLayout(false);
+            this.InstructionsTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -297,6 +345,10 @@
         private System.Windows.Forms.Button SaveUserCodeButton;
         private System.Windows.Forms.Button OpenFileButton;
         private System.Windows.Forms.TabPage InstructionsTab;
+        private System.Windows.Forms.TextBox UserInfoTextBox;
+        private System.Windows.Forms.Button OpenMinGWFolder;
+        private System.Windows.Forms.TextBox MinGWFolderTextBox;
+        private System.Windows.Forms.Label label7;
     }
 }
 

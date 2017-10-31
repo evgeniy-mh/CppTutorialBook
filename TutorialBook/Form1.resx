@@ -117,4 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="UserInfoTextBox.Text" xml:space="preserve">
+    <value>Внимание! 
+Для работы программы должен быть установлен компилятор MinGW.
+
+Для того чтобы производить тестирование вашей программы перед выводом ответа должно быть выведено слово "Answer", например:
+
+    Point p=Point(n);
+    p.EnterCoordinates();
+    cout&lt;&lt;"Answer:"&lt;&lt;p.FindDistance()&lt;&lt;endl;</value>
+  </data>
 </root>
